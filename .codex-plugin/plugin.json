@@ -1,0 +1,31 @@
+{
+  "name": "clearskies",
+  "version": "0.1.0",
+  "description": "Research your connected CRM, meetings, call transcripts, and email, and safely build clearskies revenue workflows.",
+  "author": {
+    "name": "clearskies"
+  },
+  "homepage": "https://app.clearskies.cc",
+  "repository": "https://github.com/scratchpad-ai/clearskies-plugin",
+  "keywords": ["clearskies", "crm", "calls", "email", "revops", "workflow", "automation", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "clearskies",
+    "shortDescription": "Use clearskies revenue data and workflows.",
+    "longDescription": "Research accounts, pipeline, calls, transcripts, and email, then build and safely publish clearskies workflows.",
+    "developerName": "clearskies",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "websiteURL": "https://app.clearskies.cc",
+    "defaultPrompt": [
+      "Find the CRM fields relevant to my question.",
+      "Research this account using CRM, calls, and email.",
+      "Help me build a clearskies workflow."
+    ],
+    "brandColor": "#0A0A0A",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo-dark.png"
+  }
+}
