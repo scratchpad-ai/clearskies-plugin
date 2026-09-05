@@ -92,7 +92,7 @@ for f in "${ADAPTERS[@]}"; do
   diff -q "$f" "$out/$f" >/dev/null 2>&1 || note "$f is stale; run ./scripts/sync-manifests.sh"
 done
 
-ALLOWED='["$schema","name","version","description","author","homepage","repository","license","keywords","extensions"]'
+ALLOWED="[\"\$schema\",\"name\",\"version\",\"description\",\"author\",\"homepage\",\"repository\",\"license\",\"keywords\",\"extensions\"]"
 [ "$(jq -r '."$schema"' plugin.json)" = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json" ] \
   || note "plugin.json \$schema is not the 1.0.0 plugin schema"
 extra=$(jq -r --argjson allowed "$ALLOWED" 'keys_unsorted - $allowed | join(", ")' plugin.json)
