@@ -8,7 +8,7 @@ patterns that make a shipped workflow behave. Table of contents:
 3. Trigger & node field notes
 4. Resolving structured-filter field ids
 5. Worked validation: a valid case and invalid cases
-6. Worked example: `callEnded` → filter → agent → Slack DM
+6. Worked example: `meetingEnded` → filter → agent → Slack DM
 
 ---
 
@@ -120,7 +120,7 @@ trace and confirm resolved values are real.
 - A node may fan out to multiple downstream action nodes (branch), and all execute.
 
 ### 2.8 Meeting-triggered workflows require a filter node right after the trigger
-This is enforced by `workflow_validate`: a `callStarted`/`callEnded` workflow whose
+This is enforced by `workflow_validate`: a `meetingStarted`/`meetingEnded` workflow whose
 second node isn't a `filter` fails with `"Meeting workflows must have a filter node
 immediately after the trigger; \"<id>\" is not a filter"`. This holds even if you want
 the workflow to fire on *every* call — you still need a filter node, just make it a
@@ -130,13 +130,13 @@ structural requirement with the meeting-quality guidance in §3, which is about 
 the filter should check, not *whether* one must exist.
 
 ### 2.9 `meeting.*` has no conferencing-link field — don't filter on one
-It's tempting to gate call-triggered workflows on "has a real Zoom/Meet/Teams link"
+It's tempting to gate meeting-triggered workflows on "has a real Zoom/Meet/Teams link"
 to screen out holds/blocks. **The data doesn't support it.** Three ways to see it:
 - `object_get_fields_schema("meeting")` field list: `accounts`,
   `calendar_event_canonical_instance_id`, `calendar_event_source_id`,
   `calendar_event_provider`, `duration_seconds`, `end_at`, `participants`,
   `start_at`, `title`. No url/link field.
-- `workflow_variables_get` on a `callEnded` trigger enumerates the full runtime
+- `workflow_variables_get` on a `meetingEnded` trigger enumerates the full runtime
   `meeting.*` tree: `host`, `attendees`, `accounts`, `participants`,
   `calendar_event_canonical_instance_id`, `calendar_event_source_id`,
   `calendar_event_provider` (the calendar *system*, e.g. google/outlook — not a join
@@ -163,7 +163,7 @@ status, and title-text heuristics for "Hold"/"Prep"/"Block"/"Busy"/"OOO".
 
 ## 3. Trigger & node field notes
 
-- **Triggers:** `callStarted`, `callEnded` (expose `meeting.*`); `scheduled` (no
+- **Triggers:** `meetingStarted`, `meetingEnded` (expose `meeting.*`); `scheduled` (no
   `meeting.*`; fields: `scheduleFrequency` = hourly|daily|weekdays|weekly|monthly|custom,
   `scheduleTime`, `scheduleDay`, `scheduleMonthDays`, `scheduleInterval` +
   `scheduleIntervalUnit` (minutes|hours) for custom, `scheduleTimezone` IANA);
@@ -188,10 +188,10 @@ working-location, birthday — and cancelled/deleted events (treated as deletes)
 drops events starting more than 1 year out. It does **not** exclude, by title or
 availability: personal holds, prep/blocks, placeholders, "busy" entries, declined or
 tentative invites, or meetings with **no** conferencing URL — all of these upsert a
-meeting row and can fire `callStarted`. So a call-triggered workflow without a
-meaningful filter will run on junk meetings and become spammy. `callEnded` is
+meeting row and can fire `meetingStarted`. So a meeting-triggered workflow without a
+meaningful filter will run on junk meetings and become spammy. `meetingEnded` is
 naturally safer (usually won't fire without a linked, completed call/transcript) but
-should still be filtered. See SKILL.md ("Call triggers") for the recommended
+should still be filtered. See SKILL.md ("Meeting triggers") for the recommended
 quality-gate `aiFilterPrompt` and how to validate it against a real hold/prep event.
 
 ## 4. Resolving structured-filter field ids
@@ -217,7 +217,7 @@ Salesforce during testing (trace shows `dryRun:true`) — no special setting is 
 `requireHumanReview` is a production-only human-approval gate and irrelevant here.
 
 **Trigger inputs for non-scheduled workflows:** the examples below are scheduled
-(no input). For `callStarted`/`callEnded` (needs `meetingId`) and
+(no input). For `meetingStarted`/`meetingEnded` (needs `meetingId`) and
 `salesforceRecordCreated` (needs `recordId`), get **real** inputs from
 `workflow_trigger_records_list(workflowId)` (supports `search`); use the object query
 tools (`crm_records_list`, `accounts_list`, `deals_list`, `events_list`/`events_search`)
@@ -247,13 +247,13 @@ nothing. Expectation: `find-1.count=0`, and `sf-1` fails
 `update {{find-1.records.sfRecordId}}` updates only the first (run `completed`);
 adding a `loop` fans out to all 5. Use this to decide whether you need a loop.
 
-## 6. Worked example: `callEnded` → filter → agent → Slack DM
+## 6. Worked example: `meetingEnded` → filter → agent → Slack DM
 
 End-to-end pattern for "when a call ends, DM me a summary," including the filter
 requirement in 2.8 and a real filter (not just a structural placeholder):
 
 ```
-trigger-1 callEnded
+trigger-1 meetingEnded
  → filter-1 filter{type:single, fieldId:"meeting.attendees.person_type",
              operator:"equal", value:"external"}
  → agent-1  runAgent(agentId=<published summarizer agent>, agentInput:"meeting",

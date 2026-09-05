@@ -28,7 +28,6 @@ Use the available clearskies data without assuming which CRM, objects, fields, o
 - Use `calendar_get_upcoming` only for future calendar windows.
 - When exposed, use `support_tickets_list` and `github_activities_list` for their dedicated activity types.
 - When exposed, call `identity_get` to verify the signed-in user when identity matters. Prefer `ownedByMe` over manually filtering by the returned person ID.
-- When available, `deep_research` starts a longer-running research job. Use it only when the user explicitly requests deep research, then follow its status tool until completion.
 
 ## Keep the high-value guardrails
 

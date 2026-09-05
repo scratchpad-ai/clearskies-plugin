@@ -8,7 +8,7 @@ description: >-
   "have AI keep Opportunity Next Steps updated", "auto-fill our Onboarding Next Step
   field after calls", "update a chosen SFDC field automatically after customer meetings",
   or
-  when they pick a field for AI to own. Builds the call-ended → role filter → find
+  when they pick a field for AI to own. Builds the meetingEnded → role filter → find
   record → relevance-agent → should-continue gate → generation-agent → updateSalesforce
   pattern, using two reusable field-agnostic agents with all field-specifics in the step
   messages. It proposes or drafts first and never publishes or edits a live workflow
@@ -57,7 +57,7 @@ and their `userMessage` templates.
 ## What it builds
 
 ```
-trigger-1 (callEnded)
+trigger-1 (meetingEnded)
  → filter-1  role gate on meeting.attendees.UserRoleId
  → find-1    the target Salesforce record for {{meeting.accounts.Id}}
  → filter-2  require find-1.records to be non-empty
@@ -78,7 +78,7 @@ and only then the generation agent and the write. Nothing is written unless the
 transcript actually clears the relevance bar — this controls cost and prevents
 low-quality or empty updates.
 
-`callEnded` requires a filter immediately after the trigger; the role gate (`filter-1`)
+`meetingEnded` requires a filter immediately after the trigger; the role gate (`filter-1`)
 satisfies that requirement while also scoping the workflow to the right people.
 
 ## Intake — what to confirm with RevOps

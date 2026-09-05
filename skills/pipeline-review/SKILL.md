@@ -55,7 +55,7 @@ forecast. Default to the current user's owned deals unless told otherwise.
    `timeBucket: {"fieldId": "<close date fieldId>", "interval": "week", "from": "...", "to": "..."}`
    and `valueField` set to the stage picklist fieldId. A bucketed call cannot also pass
    `groupBy` or `metrics`, so this is a separate call. Keep the window to 200 buckets or
-   fewer.
+   fewer, and pick a `valueField` with 50 or fewer distinct values.
 5. **Optional slippage.** Call `find_record_changes` with `objectType: "deal"`, `ids` set
    to the top deal ids from step 2, `from` 30 days back, and `fieldId` set to the close
    date or stage field. If it replies "change history is not enabled for this
