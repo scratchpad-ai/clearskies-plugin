@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0
+## 1.0.0
 
 Repackaged as an [Agent Plugins 1.0.0](https://agent-plugins.org) package. The
 portable root `plugin.json` and `mcp.json` are now the source of truth, so any
