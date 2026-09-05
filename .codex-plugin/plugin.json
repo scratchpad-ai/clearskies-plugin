@@ -9,7 +9,19 @@
   "homepage": "https://www.clearskies.cc",
   "repository": "https://github.com/scratchpad-ai/clearskies-plugin",
   "license": "MIT",
-  "keywords": ["clearskies", "crm", "sales", "revenue", "pipeline", "calls", "email", "revops", "workflow", "automation", "mcp"],
+  "keywords": [
+    "clearskies",
+    "crm",
+    "sales",
+    "revenue",
+    "pipeline",
+    "calls",
+    "email",
+    "revops",
+    "workflow",
+    "automation",
+    "mcp"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
@@ -18,8 +30,13 @@
     "longDescription": "Research accounts, pipeline, calls, transcripts, and email, then build and safely publish clearskies workflows.",
     "developerName": "Clearskies",
     "category": "Productivity",
-    "capabilities": ["Interactive", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
     "websiteURL": "https://www.clearskies.cc",
+    "privacyPolicyURL": "https://www.clearskies.cc/privacy-policy",
     "defaultPrompt": [
       "Research this account using CRM, calls, and email.",
       "Prep me for my next meeting.",

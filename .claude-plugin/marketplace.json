@@ -1,18 +1,31 @@
 {
   "name": "clearskies-marketplace",
   "owner": {
-    "name": "clearskies"
+    "name": "Clearskies",
+    "email": "support@clearskies.cc"
   },
   "metadata": {
-    "description": "Research your connected CRM and revenue interactions, and build clearskies workflow automations."
+    "description": "Research your connected CRM, meetings, call transcripts, and email, and safely build clearskies revenue workflows."
   },
   "plugins": [
     {
       "name": "clearskies",
       "source": "./",
-      "description": "Research accounts, pipeline, calls, transcripts, and email, and safely build clearskies workflows.",
+      "description": "Research your connected CRM, meetings, call transcripts, and email, and safely build clearskies revenue workflows.",
       "category": "productivity",
-      "keywords": ["clearskies", "crm", "calls", "email", "workflow", "revops", "automation"]
+      "keywords": [
+        "clearskies",
+        "crm",
+        "sales",
+        "revenue",
+        "pipeline",
+        "calls",
+        "email",
+        "revops",
+        "workflow",
+        "automation",
+        "mcp"
+      ]
     }
   ]
 }
