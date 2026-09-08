@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0
+
+Removed the five sales skills merged in from `clearskies-cursor-plugin`
+(`account-brief`, `meeting-prep`, `pipeline-review`, `call-recap`,
+`customer-health`). Back to the original three: `use-clearskies-revenue-data`,
+`clearskies-workflow-builder`, and `ai-update-salesforce-field`.
+
 ## 1.0.0
 
 Repackaged as an [Agent Plugins 1.0.0](https://agent-plugins.org) package. The
