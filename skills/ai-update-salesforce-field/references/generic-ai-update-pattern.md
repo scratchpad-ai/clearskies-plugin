@@ -20,7 +20,7 @@ trigger-1 -> filter-1 -> find-1 -> filter-2 -> agent-1 -> filter-3 -> agent-2 ->
 Each node's `id` is shown first; the suggested `data.label` (the human-readable name in
 the UI) is in *italics*.
 
-- `trigger-1` — call-ended trigger. *Call ended*.
+- `trigger-1` — meeting-ended trigger. *Meeting ended*.
 - `filter-1` — role gate on `meeting.attendees.UserRoleId` (also satisfies the
   meeting-trigger requirement that the first node after the trigger is a filter).
   *Attendee role gate*.

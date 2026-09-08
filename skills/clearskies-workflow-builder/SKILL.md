@@ -99,7 +99,7 @@ inherits the workflow.
 **Procedure:**
 
 1. **Pick a real trigger input (non-scheduled triggers).** Scheduled triggers need no
-   input. Call triggers (`callStarted`/`callEnded`) need a `meetingId`; record triggers
+   input. Meeting triggers (`meetingStarted`/`meetingEnded`) need a `meetingId`; record triggers
    (`salesforceRecordCreated`) need a `recordId`. **Never fabricate these ids** — query
    the MCP for real data: `workflow_trigger_records_list(workflowId)` returns valid
    candidate inputs for that workflow's trigger (meetings or records), with `search`.
@@ -143,7 +143,7 @@ inherits the workflow.
 If a dry run contradicts your mental model, trust the trace and fix the graph —
 that is the entire point of this step.
 
-## Call triggers (`callStarted` / `callEnded`): screen out non-meetings
+## Meeting triggers (`meetingStarted` / `meetingEnded`): screen out non-meetings
 
 Calendar sync is a coarse filter. It excludes only *native* non-meeting event types
 (out-of-office, focus time, working-location, birthday) and cancelled events, and it
@@ -152,8 +152,8 @@ trigger can fire on** — including ordinary personal **holds, prep/blocks,
 placeholders, "busy" entries, and declined or tentative invites.** None of those are
 screened by title or availability at the trigger layer.
 
-The consequence: a `callStarted` workflow with no real filter will fire on someone's
-"Hold — do not book" or "Prep" block and spam Slack/email/Salesforce. (`callEnded` is
+The consequence: a `meetingStarted` workflow with no real filter will fire on someone's
+"Hold — do not book" or "Prep" block and spam Slack/email/Salesforce. (`meetingEnded` is
 naturally safer — it generally won't fire for a pure hold because there's no linked,
 completed call/transcript — but filter it too; don't rely on that.)
 
@@ -173,8 +173,8 @@ signals that are actually exposed: `duration_seconds` (a 0-duration or never-sta
 hold has none/very little), attendee count and `person_type`, response status, and
 title text — not a conferencing-link check.
 
-**So every call-triggered workflow needs a filter node right after the trigger that is
-a real quality gate, not a rubber stamp.** (Call-triggered workflows are required to
+**So every meeting-triggered workflow needs a filter node right after the trigger that is
+a real quality gate, not a rubber stamp.** (Meeting-triggered workflows are required to
 have a filter immediately after the trigger anyway — make that requirement earn its
 keep.) Decide what "a real meeting worth acting on" means for the use case, then
 encode it. A good general-purpose `aiFilterPrompt` default:

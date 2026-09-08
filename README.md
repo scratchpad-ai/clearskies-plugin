@@ -1,11 +1,16 @@
-# clearskies
+# Clearskies
 
-Bring the revenue context already connected to clearskies into Claude or ChatGPT (Codex). Research
-accounts and deals, prepare for meetings, find evidence across customer interactions, and build
-reliable RevOps workflows without switching between systems.
+Bring the revenue context already connected to Clearskies into Claude, ChatGPT (Codex), Cursor, and
+any other Agent Plugins client. Research accounts and deals, prepare for meetings, recap calls,
+review pipeline risk, find evidence across customer interactions, and build reliable RevOps
+workflows without switching between systems.
 
-Depending on your clearskies connections and sync settings, available context can include CRM
-records, meetings, call transcripts, email, Slack threads, support tickets, and GitHub activity.
+Depending on your Clearskies connections and sync settings, available context can include CRM
+records, meetings, call transcripts, email, calendar events, Slack threads, support tickets, and
+GitHub activity.
+
+This repository is an [Agent Plugins 1.0.0](https://agent-plugins.org) package. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the repository layout and how to change it.
 
 ## Get started
 
@@ -22,7 +27,7 @@ records, meetings, call transcripts, email, Slack threads, support tickets, and 
 github.com/scratchpad-ai/clearskies-plugin
 ```
 
-5. Open **clearskies** from the new marketplace and install it.
+5. Open **Clearskies** from the new marketplace and install it.
 
 #### ChatGPT (Codex)
 
@@ -35,71 +40,88 @@ github.com/scratchpad-ai/clearskies-plugin
 github.com/scratchpad-ai/clearskies-plugin
 ```
 
-5. Open **clearskies** from the new marketplace and install it.
+5. Open **Clearskies** from the new marketplace and install it.
 
-Claude or ChatGPT will prompt you to connect clearskies when authentication is needed. The plugin
-does not store your credentials.
+#### Cursor
 
-### 2. Ask a revenue question
+Open **Settings**, then **Plugins**, search for **Clearskies**, and select **Install**. Cursor 3.13
+or newer is required.
+
+To run it locally instead:
+
+```bash
+git clone git@github.com:scratchpad-ai/clearskies-plugin.git
+mkdir -p ~/.cursor/plugins/local
+ln -s "$(pwd)/clearskies-plugin" ~/.cursor/plugins/local/clearskies
+```
+
+Then run **Developer: Reload Window** from the command palette. Teams and Enterprise workspaces need
+`Allow Local Plugin Imports` enabled first.
+
+#### Other Agent Plugins clients
+
+VS Code, GitHub Copilot, Kiro, and the other clients listed at
+[agent-plugins.org/compatible-clients](https://agent-plugins.org/compatible-clients) load this
+package directly from the repository root. Follow each client's own install steps.
+
+### 2. Sign in
+
+A browser window opens for sign in. Pick Google or Microsoft. There is no client ID, secret, or
+token to paste, and the plugin does not store your credentials.
+
+### 3. Ask a revenue question
 
 You can ask naturally. For example:
 
-- “Brief me on Acme using the CRM, recent calls, and email.”
-- “What changed in this deal over the last 30 days?”
-- “Summarize the objections and next steps from our recent customer conversations.”
-- “Show my open pipeline closing this quarter and flag deals without recent activity.”
-- “Prepare me for tomorrow's meetings with account history and open opportunities.”
-- “Build a workflow that posts a Slack summary after customer calls.”
-- “Keep the Opportunity Next Steps field updated from relevant meetings.”
+- "Research Acme Corp before my call tomorrow: stakeholders, deal status, and what is unresolved."
+- "Prep me for my next meeting: pull the last call, the open items, and suggest an agenda."
+- "Review my pipeline and rank open deals by risk. Which one needs attention today?"
+- "Recap that call with Acme and draft the follow up."
+- "Is Acme at risk of churning?"
+- "What changed in this deal over the last 30 days?"
+- "Build a workflow that posts a Slack summary after customer calls."
+- "Keep the Opportunity Next Steps field updated from relevant meetings."
 
 ## Available skills
 
 | Skill | Use it for |
 | --- | --- |
-| [`use-clearskies-revenue-data`](skills/use-clearskies-revenue-data/SKILL.md) | Account research, pipeline questions, meeting preparation and recaps, and finding evidence across CRM and customer interactions. |
+| [`account-brief`](skills/account-brief/SKILL.md) | Researching an account before outreach: snapshot, open deals, stakeholders, recent activity, and a next step. |
+| [`meeting-prep`](skills/meeting-prep/SKILL.md) | A decision ready brief for an upcoming call, demo, QBR, or renewal, with an agenda and talking points. |
+| [`pipeline-review`](skills/pipeline-review/SKILL.md) | Ranking open deals by risk, spotting slipping or quiet deals, and checking forecast health. |
+| [`call-recap`](skills/call-recap/SKILL.md) | Recapping a call and drafting the follow up from decisions, objections, and open commitments. |
+| [`customer-health`](skills/customer-health/SKILL.md) | Renewal and churn risk from engagement history, open support tickets, and engagement gaps. |
+| [`use-clearskies-revenue-data`](skills/use-clearskies-revenue-data/SKILL.md) | Open ended CRM and interaction questions that the focused skills above do not cover. |
 | [`clearskies-workflow-builder`](skills/clearskies-workflow-builder/SKILL.md) | Creating, changing, testing, troubleshooting, and publishing revenue workflows. |
 | [`ai-update-salesforce-field`](skills/ai-update-salesforce-field/SKILL.md) | Keeping a chosen Salesforce field up to date from relevant meeting content. |
 
-You do not need to remember skill names—describe the outcome you want and Claude or ChatGPT will use
-the appropriate skill. The explicit names are useful when you want to invoke one directly.
+You do not need to remember skill names. Describe the outcome you want and your agent will pick the
+right skill. The explicit names are useful when you want to invoke one directly.
 
-## Common RevOps use cases
+## Your data sources live in Clearskies
 
-### Account and deal research
-
-Combine current CRM state with recent meetings, calls, and email to understand account history,
-deal movement, stakeholders, risks, objections, and next steps.
-
-### Meeting preparation and follow-up
-
-Create a concise briefing before a customer meeting, recap what happened afterward, and identify
-follow-up actions grounded in the conversation and CRM.
-
-### Pipeline inspection
-
-Review pipeline by owner, stage, close date, amount, or other synchronized fields. Find stale deals,
-missing activity, and changes that deserve attention.
-
-### Conversation and customer evidence
-
-Search synchronized interactions for themes such as objections, product feedback, competitive
-mentions, commitments, or buying signals, then connect that evidence back to CRM records.
-
-### Revenue workflows
-
-Build and test automations triggered by calls, schedules, or CRM changes. Workflows can find records,
-run AI analysis, send Slack or email updates, and write approved changes back to Salesforce.
-
-### CRM hygiene
-
-Use AI to maintain a selected Salesforce field from relevant meeting content—for example, Next
-Steps, Risks, or an onboarding status field.
+This plugin points at a single MCP server. Salesforce, Gong, Scratchpad, Google, Microsoft, and
+Slack are connected inside your Clearskies account, not in local MCP configuration. Manage those
+connections from the Clearskies workspace settings.
 
 ## Working safely
 
 - Results reflect the systems, objects, fields, and history your team has chosen to synchronize.
-  “Not found” may mean the information is not synchronized, not that it does not exist in the
-  source system.
-- clearskies reads only the customer-interaction content needed to answer the question you asked.
+  "Not found" may mean the information is not synchronized, not that it is missing from the source
+  system.
+- Clearskies reads only the customer-interaction content needed to answer the question you asked.
+- Outreach is always drafted, never sent.
 - Workflow changes are drafted, validated, and tested before publication. A live workflow is never
   published or edited without your explicit approval.
+- Builder actions (workflows and agents) require workspace admin access.
+- Field level change history needs an account flag that not every workspace has.
+- Data tools use tenant credits. A workspace that is out of credit gets a refusal instead of an
+  answer.
+
+## Support and privacy
+
+- Support: support@clearskies.cc
+- Privacy policy: https://www.clearskies.cc/privacy-policy
+- MCP server documentation: https://www.clearskies.cc/docs/building-with-clearskies/mcp-server
+
+Licensed under the [MIT License](LICENSE).

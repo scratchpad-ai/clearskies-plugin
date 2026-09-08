@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate the plugin package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+
+      - name: Adapters match the portable manifest
+        run: ./scripts/sync-manifests.sh --check
+
+      - name: Fetch the Agent Plugins 1.0.0 schemas
+        run: |
+          curl -fsSL --retry 3 https://agent-plugins.org/schemas/1.0.0/plugin.schema.json -o "$RUNNER_TEMP/plugin.schema.json"
+          curl -fsSL --retry 3 https://agent-plugins.org/schemas/1.0.0/mcp.schema.json -o "$RUNNER_TEMP/mcp.schema.json"
+
+      - name: Validate plugin.json and mcp.json
+        run: |
+          npx --yes ajv-cli@5 validate --spec=draft2020 -s "$RUNNER_TEMP/plugin.schema.json" -d plugin.json
+          npx --yes ajv-cli@5 validate --spec=draft2020 -s "$RUNNER_TEMP/mcp.schema.json" -d mcp.json
+
+      - name: Validate the skills
+        run: |
+          for skill in skills/*/; do
+            npx --yes skills-ref@0.1.5 validate "$skill"
+          done

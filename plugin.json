@@ -1,0 +1,54 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "clearskies",
+  "version": "1.0.0",
+  "description": "Research your connected CRM, meetings, call transcripts, and email, and safely build clearskies revenue workflows.",
+  "author": {
+    "name": "Clearskies",
+    "email": "support@clearskies.cc",
+    "url": "https://www.clearskies.cc"
+  },
+  "homepage": "https://www.clearskies.cc",
+  "repository": "https://github.com/scratchpad-ai/clearskies-plugin",
+  "license": "MIT",
+  "keywords": [
+    "clearskies",
+    "crm",
+    "sales",
+    "revenue",
+    "pipeline",
+    "calls",
+    "email",
+    "revops",
+    "workflow",
+    "automation",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Clearskies",
+        "shortDescription": "Use clearskies revenue data and workflows.",
+        "longDescription": "Research accounts, pipeline, calls, transcripts, and email, then build and safely publish clearskies workflows.",
+        "developerName": "Clearskies",
+        "category": "Productivity",
+        "capabilities": [
+          "Interactive",
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://www.clearskies.cc",
+        "privacyPolicyURL": "https://www.clearskies.cc/privacy-policy",
+        "defaultPrompt": [
+          "Research this account using CRM, calls, and email.",
+          "Prep me for my next meeting.",
+          "Review my pipeline and rank open deals by risk."
+        ],
+        "brandColor": "#0A0A0A",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo-dark.png"
+      }
+    }
+  }
+}

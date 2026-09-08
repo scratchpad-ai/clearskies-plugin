@@ -22,5 +22,11 @@
     "workflow",
     "automation",
     "mcp"
-  ]
+  ],
+  "logo": "assets/logo.png",
+  "minClientVersions": {
+    "cursor": "3.13.0"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }

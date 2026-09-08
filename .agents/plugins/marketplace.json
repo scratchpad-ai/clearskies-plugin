@@ -1,7 +1,7 @@
 {
   "name": "clearskies-marketplace",
   "interface": {
-    "displayName": "clearskies"
+    "displayName": "Clearskies"
   },
   "plugins": [
     {
