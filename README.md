@@ -86,12 +86,7 @@ You can ask naturally. For example:
 
 | Skill | Use it for |
 | --- | --- |
-| [`account-brief`](skills/account-brief/SKILL.md) | Researching an account before outreach: snapshot, open deals, stakeholders, recent activity, and a next step. |
-| [`meeting-prep`](skills/meeting-prep/SKILL.md) | A decision ready brief for an upcoming call, demo, QBR, or renewal, with an agenda and talking points. |
-| [`pipeline-review`](skills/pipeline-review/SKILL.md) | Ranking open deals by risk, spotting slipping or quiet deals, and checking forecast health. |
-| [`call-recap`](skills/call-recap/SKILL.md) | Recapping a call and drafting the follow up from decisions, objections, and open commitments. |
-| [`customer-health`](skills/customer-health/SKILL.md) | Renewal and churn risk from engagement history, open support tickets, and engagement gaps. |
-| [`use-clearskies-revenue-data`](skills/use-clearskies-revenue-data/SKILL.md) | Open ended CRM and interaction questions that the focused skills above do not cover. |
+| [`use-clearskies-revenue-data`](skills/use-clearskies-revenue-data/SKILL.md) | Open ended CRM and interaction questions: account research, meeting prep, pipeline review, call recaps, and customer health. |
 | [`clearskies-workflow-builder`](skills/clearskies-workflow-builder/SKILL.md) | Creating, changing, testing, troubleshooting, and publishing revenue workflows. |
 | [`ai-update-salesforce-field`](skills/ai-update-salesforce-field/SKILL.md) | Keeping a chosen Salesforce field up to date from relevant meeting content. |
 
